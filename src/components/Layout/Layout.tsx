@@ -12,7 +12,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 w-full overflow-x-hidden flex flex-col">
       <Header />
       <Sidebar />
-      <main className="relative w-full flex-1">
+      <main className="relative w-full flex-1 pt-16">
         {children}
       </main>
       <Footer />

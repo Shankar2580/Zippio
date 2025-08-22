@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { User, Settings, CreditCard, Bell, Key, Download, Trash2, Save } from 'lucide-react';
+import { User, Settings, CreditCard, Save, Video } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../hooks';
 import { setUser } from '../store/slices/userSlice';
 import Button from '../components/UI/Button';
@@ -7,6 +8,7 @@ import Card from '../components/UI/Card';
 
 const SettingsPage: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const user = useAppSelector(state => state.user);
   const [activeTab, setActiveTab] = useState('profile');
   const [formData, setFormData] = useState({
@@ -28,8 +30,9 @@ const SettingsPage: React.FC = () => {
 
   const tabs = [
     { id: 'profile', name: 'Profile', icon: User },
+    { id: 'billing', name: 'Billing', icon: CreditCard },
+    { id: 'videos', name: 'My Videos', icon: Video },
     { id: 'social', name: 'Social Media', icon: Settings },
-    { id: 'security', name: 'Security', icon: Key },
   ];
 
   const handleSaveProfile = () => {
@@ -140,250 +143,9 @@ const SettingsPage: React.FC = () => {
                       Save Changes
                     </Button>
                   </div>
-                </div>
-              </Card>
-            )}
 
-            {activeTab === 'social' && (
-              <Card className="p-8">
-                <h2 className="text-2xl font-bold text-white mb-6">Social Media Credentials</h2>
-                <p className="text-slate-400 mb-8">
-                  Add your social media platform credentials to enable automatic video sharing
-                </p>
-                
-                <div className="space-y-8">
-                  {/* YouTube */}
-                  <Card className="p-6">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <span className="text-2xl">🎥</span>
-                      <h3 className="text-lg font-semibold text-white">YouTube</h3>
-                    </div>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                          API Key
-                        </label>
-                        <input
-                          type="password"
-                          value={socialCredentials.youtube.apiKey}
-                          onChange={(e) => handleSocialCredentialChange('youtube', 'apiKey', e.target.value)}
-                          className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Enter YouTube API Key"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                          Channel ID
-                        </label>
-                        <input
-                          type="text"
-                          value={socialCredentials.youtube.channelId}
-                          onChange={(e) => handleSocialCredentialChange('youtube', 'channelId', e.target.value)}
-                          className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Enter Channel ID"
-                        />
-                      </div>
-                    </div>
-                  </Card>
-
-                  {/* Facebook */}
-                  <Card className="p-6">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <span className="text-2xl">📘</span>
-                      <h3 className="text-lg font-semibold text-white">Facebook</h3>
-                    </div>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                          Access Token
-                        </label>
-                        <input
-                          type="password"
-                          value={socialCredentials.facebook.accessToken}
-                          onChange={(e) => handleSocialCredentialChange('facebook', 'accessToken', e.target.value)}
-                          className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Enter Facebook Access Token"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                          Page ID
-                        </label>
-                        <input
-                          type="text"
-                          value={socialCredentials.facebook.pageId}
-                          onChange={(e) => handleSocialCredentialChange('facebook', 'pageId', e.target.value)}
-                          className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Enter Page ID"
-                        />
-                      </div>
-                    </div>
-                  </Card>
-
-                  {/* Instagram */}
-                  <Card className="p-6">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <span className="text-2xl">📷</span>
-                      <h3 className="text-lg font-semibold text-white">Instagram</h3>
-                    </div>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                          Access Token
-                        </label>
-                        <input
-                          type="password"
-                          value={socialCredentials.instagram.accessToken}
-                          onChange={(e) => handleSocialCredentialChange('instagram', 'accessToken', e.target.value)}
-                          className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Enter Instagram Access Token"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                          Business Account ID
-                        </label>
-                        <input
-                          type="text"
-                          value={socialCredentials.instagram.businessAccountId}
-                          onChange={(e) => handleSocialCredentialChange('instagram', 'businessAccountId', e.target.value)}
-                          className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Enter Business Account ID"
-                        />
-                      </div>
-                    </div>
-                  </Card>
-
-                  {/* Twitter/X */}
-                  <Card className="p-6">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <span className="text-2xl">🐦</span>
-                      <h3 className="text-lg font-semibold text-white">Twitter/X</h3>
-                    </div>
-                    <div className="grid md:grid-cols-3 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                          API Key
-                        </label>
-                        <input
-                          type="password"
-                          value={socialCredentials.twitter.apiKey}
-                          onChange={(e) => handleSocialCredentialChange('twitter', 'apiKey', e.target.value)}
-                          className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Enter API Key"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                          API Secret
-                        </label>
-                        <input
-                          type="password"
-                          value={socialCredentials.twitter.apiSecret}
-                          onChange={(e) => handleSocialCredentialChange('twitter', 'apiSecret', e.target.value)}
-                          className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Enter API Secret"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                          Access Token
-                        </label>
-                        <input
-                          type="password"
-                          value={socialCredentials.twitter.accessToken}
-                          onChange={(e) => handleSocialCredentialChange('twitter', 'accessToken', e.target.value)}
-                          className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Enter Access Token"
-                        />
-                      </div>
-                    </div>
-                  </Card>
-
-                  {/* LinkedIn */}
-                  <Card className="p-6">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <span className="text-2xl">💼</span>
-                      <h3 className="text-lg font-semibold text-white">LinkedIn</h3>
-                    </div>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                          Client ID
-                        </label>
-                        <input
-                          type="password"
-                          value={socialCredentials.linkedin.clientId}
-                          onChange={(e) => handleSocialCredentialChange('linkedin', 'clientId', e.target.value)}
-                          className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Enter Client ID"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                          Client Secret
-                        </label>
-                        <input
-                          type="password"
-                          value={socialCredentials.linkedin.clientSecret}
-                          onChange={(e) => handleSocialCredentialChange('linkedin', 'clientSecret', e.target.value)}
-                          className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Enter Client Secret"
-                        />
-                      </div>
-                    </div>
-                  </Card>
-
-                  {/* TikTok */}
-                  <Card className="p-6">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <span className="text-2xl">🎵</span>
-                      <h3 className="text-lg font-semibold text-white">TikTok</h3>
-                    </div>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                          Access Token
-                        </label>
-                        <input
-                          type="password"
-                          value={socialCredentials.tiktok.accessToken}
-                          onChange={(e) => handleSocialCredentialChange('tiktok', 'accessToken', e.target.value)}
-                          className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Enter Access Token"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                          Open ID
-                        </label>
-                        <input
-                          type="text"
-                          value={socialCredentials.tiktok.openId}
-                          onChange={(e) => handleSocialCredentialChange('tiktok', 'openId', e.target.value)}
-                          className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Enter Open ID"
-                        />
-                      </div>
-                    </div>
-                  </Card>
-
-                  <div className="pt-6 border-t border-slate-700">
-                    <Button onClick={handleSaveSocialCredentials}>
-                      <Save className="w-4 h-4 mr-2" />
-                      Save All Credentials
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            )}
-
-            {activeTab === 'security' && (
-              <Card className="p-8">
-                <h2 className="text-2xl font-bold text-white mb-6">Security Settings</h2>
-                
-                <div className="space-y-6">
-                  <div>
+                  {/* Security (moved from Security tab) */}
+                  <div className="pt-8 border-t border-slate-700">
                     <h3 className="text-lg font-semibold text-white mb-4">Change Password</h3>
                     <div className="space-y-4 max-w-md">
                       <div>
@@ -422,18 +184,69 @@ const SettingsPage: React.FC = () => {
                           placeholder="Confirm new password"
                         />
                       </div>
+                      <div className="pt-2">
+                        <Button onClick={handleSavePassword}>
+                          <Save className="w-4 h-4 mr-2" />
+                          Update Password
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="pt-6 border-t border-slate-700">
-                    <Button onClick={handleSavePassword}>
-                      <Save className="w-4 h-4 mr-2" />
-                      Update Password
-                    </Button>
                   </div>
                 </div>
               </Card>
             )}
+
+            {activeTab === 'billing' && (
+              <Card className="p-8">
+                <h2 className="text-2xl font-bold text-white mb-6">Billing</h2>
+                <p className="text-slate-400 mb-6">Manage your subscription plan and usage.</p>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <Card className="p-6">
+                    <h3 className="text-lg font-semibold text-white mb-2">Current Plan</h3>
+                    <p className="text-slate-300">Starter</p>
+                    <p className="text-slate-400 text-sm">50 videos/month</p>
+                    <div className="pt-4">
+                      <Button>Upgrade Plan</Button>
+                    </div>
+                  </Card>
+                  <Card className="p-6">
+                    <h3 className="text-lg font-semibold text-white mb-2">Usage</h3>
+                    <p className="text-slate-300">Videos used this month: 0/50</p>
+                    <div className="pt-4">
+                      <Button variant="outline">Buy Add-ons</Button>
+                    </div>
+                  </Card>
+                </div>
+              </Card>
+            )}
+
+            {activeTab === 'videos' && (
+              <Card className="p-8">
+                <h2 className="text-2xl font-bold text-white mb-6">My Videos</h2>
+                <p className="text-slate-400 mb-6">View and manage your uploaded and processed videos.</p>
+                <Button onClick={() => navigate('/dashboard')}>
+                  Go to Dashboard
+                </Button>
+              </Card>
+            )}
+
+            {activeTab === 'social' && (
+              <Card className="p-8">
+                <h2 className="text-2xl font-bold text-white mb-6">Social Media Credentials</h2>
+                <p className="text-slate-400 mb-8">
+                  Add your social media platform credentials to enable automatic video sharing
+                </p>
+                <div className="mb-6">
+                  <Button onClick={() => navigate('/social-media')}>
+                    Go to Social Media Setup
+                  </Button>
+                </div>
+                
+                
+              </Card>
+            )}
+
+            {/* Security tab removed; its contents moved into Profile */}
           </div>
         </div>
       </div>

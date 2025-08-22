@@ -11,7 +11,7 @@ const LandingPage: React.FC = () => {
 
   const handleGetStarted = () => {
     if (isAuthenticated) {
-      navigate('/dashboard');
+      navigate('/Upload');
     } else {
       navigate('/login');
     }

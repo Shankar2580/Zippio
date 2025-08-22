@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Upload, FileVideo, X, Check } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../hooks';
@@ -13,6 +13,7 @@ const UploadPage: React.FC = () => {
   const { uploadProgress, isUploading } = useAppSelector(state => state.video);
   const [dragActive, setDragActive] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -120,17 +121,19 @@ const UploadPage: React.FC = () => {
               </p>
               
               <input
+                ref={fileInputRef}
                 type="file"
                 accept="video/*"
                 onChange={handleFileInput}
                 className="hidden"
-                id="file-upload"
               />
-              <label htmlFor="file-upload">
-                <Button size="lg" className="cursor-pointer">
-                  Choose Video File
-                </Button>
-              </label>
+              <Button
+                size="lg"
+                className="cursor-pointer"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                Choose Video File
+              </Button>
               
               <div className="mt-8 pt-8 border-t border-slate-700">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
@@ -207,7 +210,7 @@ const UploadPage: React.FC = () => {
                     onClick={continueToProcessing}
                     className="w-full"
                   >
-                    Start Processing Video
+                    Process Video
                   </Button>
                 </div>
               )}

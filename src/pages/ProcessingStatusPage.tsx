@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Music, Type, Download, Check, Clock, X, Zap, Upload as UploadIcon } from 'lucide-react';
 import { useAppSelector, useAppDispatch } from '../hooks';
-import { setProcessingStep, updateVideo } from '../store/slices/videoSlice';
+import { updateVideo } from '../store/slices/videoSlice';
 import Button from '../components/UI/Button';
 import Card from '../components/UI/Card';
 import ProgressBar from '../components/UI/ProgressBar';
@@ -10,47 +10,41 @@ import ProgressBar from '../components/UI/ProgressBar';
 const ProcessingStatusPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { currentVideo, processingStep } = useAppSelector(state => state.video);
+  const { currentVideo } = useAppSelector(state => state.video);
   const [progress, setProgress] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(180); // 3 minutes
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   const steps = [
-    { 
-      id: 'uploading', 
-      name: 'Uploading', 
-      icon: UploadIcon, 
-      description: 'Uploading your video to our secure servers...' 
+    {
+      id: 'uploading',
+      name: 'Uploading video...',
+      icon: UploadIcon,
+      description: 'Uploading your video to our secure servers...'
     },
-    { 
-      id: 'analyzing', 
-      name: 'Analyzing', 
-      icon: Zap, 
-      description: 'AI is analyzing your video content and structure...' 
+    {
+      id: 'music',
+      name: 'Generating music with ElevenLabs...',
+      icon: Music,
+      description: 'Creating and syncing background music via ElevenLabs...'
     },
-    { 
-      id: 'music', 
-      name: 'Adding Music', 
-      icon: Music, 
-      description: 'AI is selecting and synchronizing perfect background music...' 
+    {
+      id: 'captions',
+      name: 'Adding captions with Gemini API...',
+      icon: Type,
+      description: 'Transcribing and styling captions using Gemini API...'
     },
-    { 
-      id: 'captions', 
-      name: 'Generating Captions', 
-      icon: Type, 
-      description: 'Creating automatic captions with professional styling...' 
+    {
+      id: 'finalizing',
+      name: 'Finalizing your enhanced video...',
+      icon: Download,
+      description: 'Rendering the final output and applying enhancements...'
     },
-    { 
-      id: 'rendering', 
-      name: 'Rendering', 
-      icon: Download, 
-      description: 'Rendering your enhanced video with all AI improvements...' 
-    },
-    { 
-      id: 'completed', 
-      name: 'Complete', 
-      icon: Check, 
-      description: 'Your professionally enhanced video is ready!' 
+    {
+      id: 'completed',
+      name: 'Complete',
+      icon: Check,
+      description: 'Your professionally enhanced video is ready!'
     }
   ];
 
@@ -66,7 +60,7 @@ const ProcessingStatusPage: React.FC = () => {
         
         if (newProgress >= 100) {
           clearInterval(interval);
-          setCurrentStepIndex(5); // Complete step
+          setCurrentStepIndex(4); // Complete step (index of completed)
           dispatch(updateVideo({
             id: currentVideo.id,
             status: 'completed',
@@ -76,16 +70,14 @@ const ProcessingStatusPage: React.FC = () => {
           return 100;
         }
 
-        // Update step based on progress
-        if (newProgress > 85 && currentStepIndex < 4) {
-          setCurrentStepIndex(4); // Rendering
-        } else if (newProgress > 65 && currentStepIndex < 3) {
-          setCurrentStepIndex(3); // Captions
-        } else if (newProgress > 45 && currentStepIndex < 2) {
-          setCurrentStepIndex(2); // Music
-        } else if (newProgress > 25 && currentStepIndex < 1) {
-          setCurrentStepIndex(1); // Analyzing
-        } else if (newProgress > 5 && currentStepIndex < 1) {
+        // Update step based on progress (4 stages before complete)
+        if (newProgress > 85 && currentStepIndex < 3) {
+          setCurrentStepIndex(3); // Finalizing
+        } else if (newProgress > 65 && currentStepIndex < 2) {
+          setCurrentStepIndex(2); // Captions
+        } else if (newProgress > 40 && currentStepIndex < 1) {
+          setCurrentStepIndex(1); // Music (ElevenLabs)
+        } else if (newProgress >= 0 && currentStepIndex < 0) {
           setCurrentStepIndex(0); // Uploading
         }
 

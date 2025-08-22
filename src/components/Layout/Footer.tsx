@@ -36,55 +36,30 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Product */}
+          {/* Product - simplified */}
           <div>
             <h4 className="text-white font-semibold mb-4">Product</h4>
             <ul className="space-y-2">
-              <li>
-                <Link to="/features" className="text-slate-400 hover:text-white text-sm transition-colors">
-                  Features
-                </Link>
-              </li>
-              <li>
-                <Link to="/pricing" className="text-slate-400 hover:text-white text-sm transition-colors">
-                  Pricing
-                </Link>
-              </li>
               <li>
                 <Link to="/upload" className="text-slate-400 hover:text-white text-sm transition-colors">
                   Upload Video
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard" className="text-slate-400 hover:text-white text-sm transition-colors">
-                  Dashboard
+                <Link to="/settings" className="text-slate-400 hover:text-white text-sm transition-colors">
+                  Settings
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Resources */}
+          {/* Resources - simplified */}
           <div>
             <h4 className="text-white font-semibold mb-4">Resources</h4>
             <ul className="space-y-2">
               <li>
                 <Link to="/help" className="text-slate-400 hover:text-white text-sm transition-colors">
                   Help Center
-                </Link>
-              </li>
-              <li>
-                <Link to="/tutorials" className="text-slate-400 hover:text-white text-sm transition-colors">
-                  Tutorials
-                </Link>
-              </li>
-              <li>
-                <Link to="/api-docs" className="text-slate-400 hover:text-white text-sm transition-colors">
-                  API Documentation
-                </Link>
-              </li>
-              <li>
-                <Link to="/blog" className="text-slate-400 hover:text-white text-sm transition-colors">
-                  Blog
                 </Link>
               </li>
             </ul>
@@ -121,17 +96,7 @@ const Footer: React.FC = () => {
             <p className="text-slate-400 text-sm">
               © {currentYear} Zippio.ai. All rights reserved.
             </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link to="/privacy" className="text-slate-400 hover:text-white text-sm transition-colors">
-                Privacy Policy
-              </Link>
-              <Link to="/terms" className="text-slate-400 hover:text-white text-sm transition-colors">
-                Terms of Service
-              </Link>
-              <Link to="/cookies" className="text-slate-400 hover:text-white text-sm transition-colors">
-                Cookie Policy
-              </Link>
-            </div>
+            <div className="flex space-x-6 mt-4 md:mt-0" />
           </div>
         </div>
       </div>
