@@ -108,7 +108,7 @@ const SettingsPage: React.FC = () => {
           <div className="lg:col-span-3">
             {activeTab === 'profile' && (
               <Card className="p-8">
-                <h2 className="text-2xl font-bold text-white mb-8">Profile Settings</h2>
+                <h2 className="text-2xl font-bold text-white mb-8">Profile Detail</h2>
 
                 <div className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
@@ -137,14 +137,14 @@ const SettingsPage: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="pt-6 border-t border-slate-700">
+                  {/* <div className="pt-6 border-t border-slate-700">
                     <Button onClick={handleSaveProfile}>
                       <Save className="w-4 h-4 mr-2" />
                       Save Changes
                     </Button>
-                  </div>
+                  </div> */}
 
-                  {/* Security (moved from Security tab) */}
+                  {/* Security (moved from Security tab)
                   <div className="pt-8 border-t border-slate-700">
                     <h3 className="text-lg font-semibold text-white mb-4">Change Password</h3>
                     <div className="space-y-4 max-w-md">
@@ -190,8 +190,8 @@ const SettingsPage: React.FC = () => {
                           Update Password
                         </Button>
                       </div>
-                    </div>
-                  </div>
+                    </div> */}
+                  {/* </div> */}
                 </div>
               </Card>
             )}
@@ -237,7 +237,7 @@ const SettingsPage: React.FC = () => {
                   Add your social media platform credentials to enable automatic video sharing
                 </p>
                 <div className="mb-6">
-                  <Button onClick={() => navigate('/social-media')}>
+                  <Button onClick={() => window.open('https://www.upload-post.com/index.html', '_blank')}>
                     Go to Social Media Setup
                   </Button>
                 </div>

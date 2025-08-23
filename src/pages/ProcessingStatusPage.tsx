@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Music, Type, Download, Check, Clock, X, Zap, Upload as UploadIcon } from 'lucide-react';
 import { useAppSelector, useAppDispatch } from '../hooks';
-import { updateVideo } from '../store/slices/videoSlice';
+import { updateVideo, resetCurrentVideo } from '../store/slices/videoSlice';
 import Button from '../components/UI/Button';
 import Card from '../components/UI/Card';
 import ProgressBar from '../components/UI/ProgressBar';
@@ -50,6 +50,8 @@ const ProcessingStatusPage: React.FC = () => {
 
   useEffect(() => {
     if (!currentVideo) {
+      // If no current video, reset the state and navigate to upload page to start fresh
+      dispatch(resetCurrentVideo());
       navigate('/upload');
       return;
     }
@@ -66,7 +68,8 @@ const ProcessingStatusPage: React.FC = () => {
             status: 'completed',
             downloadUrl: 'https://example.com/download/' + currentVideo.id
           }));
-          setTimeout(() => navigate('/results'), 1500);
+          // Automatically navigate to results after processing completes
+          setTimeout(() => navigate('/results'), 2000);
           return 100;
         }
 

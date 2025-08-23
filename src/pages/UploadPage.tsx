@@ -70,16 +70,16 @@ const UploadPage: React.FC = () => {
     dispatch(addVideo(video));
     dispatch(setCurrentVideo(video));
     dispatch(setIsUploading(false));
+    
+    // Automatically navigate to processing status after upload completes
+    setTimeout(() => {
+      navigate('/processing-status');
+    }, 1500);
   };
 
   const removeFile = () => {
     setUploadedFile(null);
     dispatch(setUploadProgress(0));
-  };
-
-  const continueToProcessing = () => {
-    // Start processing immediately after upload
-    navigate('/processing-status');
   };
 
   const supportedFormats = ['MP4', 'MOV', 'AVI', 'WMV', 'FLV', 'WebM'];
@@ -203,15 +203,8 @@ const UploadPage: React.FC = () => {
                 <div>
                   <div className="flex items-center text-emerald-400 mb-4">
                     <Check className="w-5 h-5 mr-2" />
-                    <span className="font-medium">Upload complete!</span>
+                    <span className="font-medium">Upload complete! Redirecting to processing...</span>
                   </div>
-                  <Button
-                    size="lg"
-                    onClick={continueToProcessing}
-                    className="w-full"
-                  >
-                    Process Video
-                  </Button>
                 </div>
               )}
             </Card>
@@ -234,7 +227,7 @@ const UploadPage: React.FC = () => {
                   </div>
                   <div>
                     <div className="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center mx-auto mb-2">
-                      <span className="text-emerald-400 font-bold">3</span>
+                      <span className="text-purple-400 font-bold">3</span>
                     </div>
                     <p className="text-sm text-slate-300">Download your video</p>
                   </div>

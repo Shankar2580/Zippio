@@ -24,7 +24,8 @@ const ResultsPage: React.FC = () => {
   };
 
   const createNewVideo = () => {
-    navigate('/upload');
+    // Navigate to processing status page to start a new video processing
+    navigate('/processing-status');
   };
 
   if (!currentVideo) {
@@ -170,6 +171,16 @@ const ResultsPage: React.FC = () => {
                   <Share2 className="w-5 h-5 mr-2" />
                   Share to Social Media
                 </Button>
+
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full"
+                  onClick={createNewVideo}
+                >
+                  <RotateCcw className="w-5 h-5 mr-2" />
+                  Retry Processing
+                </Button>
               </div>
             </Card>
 
@@ -201,7 +212,7 @@ const ResultsPage: React.FC = () => {
             </Card>
 
             {/* Enhancement Stats */}
-            <Card className="p-6">
+            {/* <Card className="p-6">
               <h3 className="text-lg font-semibold text-white mb-4">Enhancement Details</h3>
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between">
@@ -221,7 +232,7 @@ const ResultsPage: React.FC = () => {
                   <span className="text-emerald-400">✅ Enhanced</span>
                 </div>
               </div>
-            </Card>
+            </Card> */}
           </div>
         </div>
       </div>

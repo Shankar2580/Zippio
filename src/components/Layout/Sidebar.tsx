@@ -12,9 +12,9 @@ const Sidebar: React.FC = () => {
 
   const navigation = [
     { name: 'Home', href: '/', icon: Home },
-    { name: 'Upload', href: '/upload', icon: Upload },
+    // { name: 'Upload', href: '/upload', icon: Upload },
     { name: 'My Videos', href: '/dashboard', icon: Video },
-    { name: 'Social Media', href: '/social-media', icon: Share2 },
+    // { name: 'Social Media', href: '/social-media', icon: Share2 },
     { name: 'Settings', href: '/settings', icon: Settings },
   ];
 

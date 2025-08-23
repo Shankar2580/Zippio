@@ -61,6 +61,13 @@ const videoSlice = createSlice({
     setIsProcessing: (state, action: PayloadAction<boolean>) => {
       state.isProcessing = action.payload;
     },
+    resetCurrentVideo: (state) => {
+      state.currentVideo = null;
+      state.uploadProgress = 0;
+      state.processingStep = 'upload';
+      state.isUploading = false;
+      state.isProcessing = false;
+    },
   },
 });
 
@@ -73,6 +80,7 @@ export const {
   setProcessingStep,
   setIsUploading,
   setIsProcessing,
+  resetCurrentVideo,
 } = videoSlice.actions;
 
 export default videoSlice.reducer;

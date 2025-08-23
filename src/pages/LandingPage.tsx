@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Upload, Music, Type, Download, Star, Check, ArrowRight, Zap, Crown } from 'lucide-react';
+import { Upload, Music, Type, Download, Star, Check, ArrowRight, Zap, Crown, Play, Sparkles } from 'lucide-react';
 import { useAppSelector } from '../hooks';
 import Button from '../components/UI/Button';
 import Card from '../components/UI/Card';
@@ -68,13 +68,23 @@ const LandingPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/20 to-emerald-600/20" />
+      <section className="relative overflow-hidden pt-20 pb-32">
+        {/* Animated background elements */}
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
+          <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-500 rounded-full filter blur-3xl opacity-20 animate-pulse delay-1000"></div>
+        </div>
+        
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="text-center">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-slate-800 border border-slate-700 mb-8">
+              <Sparkles className="w-4 h-4 text-emerald-400 mr-2" />
+              <span className="text-sm text-slate-300">AI-Powered Video Enhancement</span>
+            </div>
+            
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
               <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">
                 AI-Powered Video
               </span>
@@ -89,24 +99,27 @@ const LandingPage: React.FC = () => {
               <Button
                 size="xl"
                 onClick={handleGetStarted}
-                className="group"
+                className="group bg-gradient-to-r from-blue-500 to-emerald-500 hover:from-blue-600 hover:to-emerald-600"
               >
                 Start Creating Now
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button variant="outline" size="xl" onClick={handleGetStarted}>
-                View Demo
-              </Button>
+              
+              {/* <Button
+                variant="outline"
+                size="xl"
+                onClick={() => document.getElementById('features').scrollIntoView({ behavior: 'smooth' })}
+              >
+                <Play className="w-5 h-5 mr-2" />
+                See Features
+              </Button> */}
             </div>
-            <p className="text-slate-400 mt-4">
-              Professional video enhancement starting at $50
-            </p>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20">
+      <section id="features" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-white mb-4">
@@ -119,8 +132,8 @@ const LandingPage: React.FC = () => {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="p-6 text-center" hover>
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <Card key={index} className="p-6 text-center group hover:bg-slate-800/50 transition-all duration-300" hover>
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <feature.icon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
@@ -132,7 +145,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Process Steps */}
-      <section className="py-20">
+      <section className="py-20 bg-gradient-to-b from-slate-800/50 to-slate-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-white mb-4">
@@ -146,10 +159,10 @@ const LandingPage: React.FC = () => {
           <div className="relative">
             <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 transform -translate-y-1/2" />
             
-            <div className="grid lg:grid-cols-3 gap-8">
+            <div className="grid lg:grid-cols-3 gap-8 lg:gap-16">
               {processSteps.map((item, index) => (
-                <div key={index} className="relative text-center">
-                  <div className="w-20 h-20 bg-slate-800 border-4 border-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 relative z-10">
+                <div key={index} className="relative text-center group">
+                  <div className="w-20 h-20 bg-slate-800 border-4 border-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 relative z-10 group-hover:scale-110 transition-transform duration-300">
                     <item.icon className="w-8 h-8 text-blue-400" />
                   </div>
                   <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2 bg-blue-600 text-white text-sm font-bold px-3 py-1 rounded-full">
@@ -164,63 +177,27 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Trusted by Creators Worldwide
-            </h2>
-            <div className="flex items-center justify-center space-x-1 mb-4">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
-              ))}
-              <span className="text-slate-300 ml-2">4.9/5 from 10,000+ creators</span>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="p-6">
-                <div className="flex items-center mb-4">
-                  <img
-                    src={testimonial.avatar}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full object-cover mr-4"
-                  />
-                  <div>
-                    <h4 className="text-white font-semibold">{testimonial.name}</h4>
-                    <p className="text-slate-400 text-sm">{testimonial.role}</p>
-                  </div>
-                </div>
-                <p className="text-slate-300 italic">"{testimonial.content}"</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-    
-
       {/* CTA Section */}
       <section className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Card className="p-12">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Ready to Transform Your Videos?
-            </h2>
-            <p className="text-slate-300 text-lg mb-8">
-              Join thousands of creators using AI-powered video enhancement
-            </p>
-            <Button
-              size="xl"
-              onClick={handleGetStarted}
-              className="group"
-            >
-              Start Creating Today
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Card>
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-600 to-emerald-600 p-1">
+            <Card className="p-12 bg-slate-900 rounded-3xl">
+              <h2 className="text-4xl font-bold text-white mb-4">
+                Ready to Transform Your Videos?
+              </h2>
+              <p className="text-slate-300 text-lg mb-8">
+                Join thousands of creators using AI-powered video enhancement
+              </p>
+              <Button
+                size="xl"
+                onClick={handleGetStarted}
+                className="group bg-gradient-to-r from-blue-500 to-emerald-500 hover:from-blue-600 hover:to-emerald-600"
+              >
+                Start Creating Today
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Card>
+          </div>
         </div>
       </section>
     </div>

@@ -6,7 +6,7 @@ import { useAppSelector } from './hooks';
 import Layout from './components/Layout/Layout';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
-import SignupPage from './pages/SignupPage';
+// import SignupPage from './pages/SignupPage';
 import UploadPage from './pages/UploadPage';
 import ProcessingStatusPage from './pages/ProcessingStatusPage';
 import ResultsPage from './pages/ResultsPage';

@@ -9,73 +9,73 @@ import type { Video } from '../store/slices/videoSlice';
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
   const { videos } = useAppSelector(state => state.video);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState<'all' | 'completed' | 'processing' | 'failed'>('all');
-  const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'name'>('newest');
+  // const [searchTerm, setSearchTerm] = useState('');
+  // const [statusFilter, setStatusFilter] = useState<'all' | 'completed' | 'processing' | 'failed'>('all');
+  // const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'name'>('newest');
 
   // Mock data if no videos exist
-  const mockVideos: Video[] = [
-    {
-      id: '1',
-      title: 'Summer Vacation Highlights.mp4',
-      thumbnail: 'https://images.pexels.com/photos/1586298/pexels-photo-1586298.jpeg?auto=compress&cs=tinysrgb&w=400',
-      duration: 125,
-      size: 89654321,
-      status: 'completed',
-      createdAt: '2024-01-15T10:30:00Z',
-      downloadUrl: '#'
-    },
-    {
-      id: '2',
-      title: 'Product Demo Video.mp4',
-      thumbnail: 'https://images.pexels.com/photos/3945313/pexels-photo-3945313.jpeg?auto=compress&cs=tinysrgb&w=400',
-      duration: 180,
-      size: 156789123,
-      status: 'processing',
-      createdAt: '2024-01-14T15:45:00Z',
-      processingProgress: 67
-    },
-    {
-      id: '3',
-      title: 'Tutorial Content.mp4',
-      thumbnail: 'https://images.pexels.com/photos/5704849/pexels-photo-5704849.jpeg?auto=compress&cs=tinysrgb&w=400',
-      duration: 340,
-      size: 234567890,
-      status: 'completed',
-      createdAt: '2024-01-13T09:15:00Z',
-      downloadUrl: '#'
-    },
-    {
-      id: '4',
-      title: 'Marketing Campaign.mp4',
-      thumbnail: 'https://images.pexels.com/photos/3153198/pexels-photo-3153198.jpeg?auto=compress&cs=tinysrgb&w=400',
-      duration: 95,
-      size: 67891234,
-      status: 'failed',
-      createdAt: '2024-01-12T14:20:00Z'
-    }
-  ];
+  // const mockVideos: Video[] = [
+  //   {
+  //     id: '1',
+  //     title: 'Summer Vacation Highlights.mp4',
+  //     thumbnail: 'https://images.pexels.com/photos/1586298/pexels-photo-1586298.jpeg?auto=compress&cs=tinysrgb&w=400',
+  //     duration: 125,
+  //     size: 89654321,
+  //     status: 'completed',
+  //     createdAt: '2024-01-15T10:30:00Z',
+  //     downloadUrl: '#'
+  //   },
+  //   {
+  //     id: '2',
+  //     title: 'Product Demo Video.mp4',
+  //     thumbnail: 'https://images.pexels.com/photos/3945313/pexels-photo-3945313.jpeg?auto=compress&cs=tinysrgb&w=400',
+  //     duration: 180,
+  //     size: 156789123,
+  //     status: 'processing',
+  //     createdAt: '2024-01-14T15:45:00Z',
+  //     processingProgress: 67
+  //   },
+  //   {
+  //     id: '3',
+  //     title: 'Tutorial Content.mp4',
+  //     thumbnail: 'https://images.pexels.com/photos/5704849/pexels-photo-5704849.jpeg?auto=compress&cs=tinysrgb&w=400',
+  //     duration: 340,
+  //     size: 234567890,
+  //     status: 'completed',
+  //     createdAt: '2024-01-13T09:15:00Z',
+  //     downloadUrl: '#'
+  //   },
+  //   {
+  //     id: '4',
+  //     title: 'Marketing Campaign.mp4',
+  //     thumbnail: 'https://images.pexels.com/photos/3153198/pexels-photo-3153198.jpeg?auto=compress&cs=tinysrgb&w=400',
+  //     duration: 95,
+  //     size: 67891234,
+  //     status: 'failed',
+  //     createdAt: '2024-01-12T14:20:00Z'
+  //   }
+  // ];
 
-  const displayVideos = videos.length > 0 ? videos : mockVideos;
+  // const displayVideos = videos.length > 0 ? videos : mockVideos;
 
-  const filteredVideos = displayVideos
-    .filter(video => {
-      const matchesSearch = video.title.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesStatus = statusFilter === 'all' || video.status === statusFilter;
-      return matchesSearch && matchesStatus;
-    })
-    .sort((a, b) => {
-      switch (sortBy) {
-        case 'newest':
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-        case 'oldest':
-          return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
-        case 'name':
-          return a.title.localeCompare(b.title);
-        default:
-          return 0;
-      }
-    });
+  const filteredVideos = videos
+  //   .filter(video => {
+  //     const matchesSearch = video.title.toLowerCase().includes(searchTerm.toLowerCase());
+  //     const matchesStatus = statusFilter === 'all' || video.status === statusFilter;
+  //     return matchesSearch && matchesStatus;
+  //   })
+  //   .sort((a, b) => {
+  //     switch (sortBy) {
+  //       case 'newest':
+  //         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  //       case 'oldest':
+  //         return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+  //       case 'name':
+  //         return a.title.localeCompare(b.title);
+  //       default:
+  //         return 0;
+  //     }
+  //   });
 
   const formatDuration = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -140,66 +140,66 @@ const DashboardPage: React.FC = () => {
           </Button>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="p-6">
-            <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                <Play className="w-6 h-6 text-blue-400" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-white">{displayVideos.length}</p>
-                <p className="text-slate-400 text-sm">Total Videos</p>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="p-6">
-            <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center">
-                <Download className="w-6 h-6 text-emerald-400" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-white">
-                  {displayVideos.filter(v => v.status === 'completed').length}
-                </p>
-                <p className="text-slate-400 text-sm">Completed</p>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="p-6">
-            <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center">
-                <Clock className="w-6 h-6 text-yellow-400" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-white">
-                  {displayVideos.filter(v => v.status === 'processing').length}
-                </p>
-                <p className="text-slate-400 text-sm">Processing</p>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="p-6">
-            <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                <Calendar className="w-6 h-6 text-purple-400" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-white">5</p>
-                <p className="text-slate-400 text-sm">This Month</p>
-              </div>
-            </div>
-          </Card>
+  {/* Stats Cards */}
+  <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <Card className="p-6">
+      <div className="flex items-center space-x-3">
+        <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
+          <Play className="w-6 h-6 text-blue-400" />
         </div>
+        <div>
+          <p className="text-2xl font-bold text-white">{videos.length}</p>
+          <p className="text-slate-400 text-sm">Total Videos</p>
+        </div>
+      </div>
+    </Card>
 
-        {/* Filters and Search */}
-        <Card className="p-6 mb-8">
+    <Card className="p-6">
+      <div className="flex items-center space-x-3">
+        <div className="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center">
+          <Download className="w-6 h-6 text-emerald-400" />
+        </div>
+        <div>
+          <p className="text-2xl font-bold text-white">
+            {videos.filter(v => v.status === 'completed').length}
+          </p>
+          <p className="text-slate-400 text-sm">Completed</p>
+        </div>
+      </div>
+    </Card>
+
+    <Card className="p-6">
+      <div className="flex items-center space-x-3">
+        <div className="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center">
+          <Clock className="w-6 h-6 text-yellow-400" />
+        </div>
+        <div>
+          <p className="text-2xl font-bold text-white">
+            {videos.filter(v => v.status === 'processing').length}
+          </p>
+          <p className="text-slate-400 text-sm">Processing</p>
+        </div>
+      </div>
+    </Card>
+
+    <Card className="p-6">
+      <div className="flex items-center space-x-3">
+        <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+          <Calendar className="w-6 h-6 text-purple-400" />
+        </div>
+        <div>
+          <p className="text-2xl font-bold text-white">5</p>
+          <p className="text-slate-400 text-sm">This Month</p>
+        </div>
+      </div>
+    </Card>
+  </div>
+
+        {/* Filters and Search - Commented out per request */}
+        {/* <Card className="p-6 mb-8">
           <div className="flex flex-col lg:flex-row gap-4">
             {/* Search */}
-            <div className="relative flex-1">
+            {/* <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
               <input
                 type="text"
@@ -208,10 +208,10 @@ const DashboardPage: React.FC = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               />
-            </div>
+            </div> */}
 
             {/* Status Filter */}
-            <div className="flex items-center space-x-2">
+            {/* <div className="flex items-center space-x-2">
               <Filter className="text-slate-400 w-4 h-4" />
               <select
                 value={statusFilter}
@@ -223,10 +223,10 @@ const DashboardPage: React.FC = () => {
                 <option value="processing">Processing</option>
                 <option value="failed">Failed</option>
               </select>
-            </div>
+            </div> */}
 
             {/* Sort */}
-            <select
+            {/* <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
               className="bg-slate-700 border border-slate-600 rounded-lg text-white px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
@@ -236,20 +236,17 @@ const DashboardPage: React.FC = () => {
               <option value="name">Name A-Z</option>
             </select>
           </div>
-        </Card>
+        </Card> */}
 
         {/* Videos Grid */}
-        {filteredVideos.length === 0 ? (
+        {videos.length === 0 ? (
           <Card className="p-12 text-center">
             <div className="w-20 h-20 bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4">
               <Play className="w-10 h-10 text-slate-400" />
             </div>
             <h3 className="text-xl font-semibold text-white mb-2">No Videos Found</h3>
             <p className="text-slate-400 mb-6">
-              {searchTerm || statusFilter !== 'all' 
-                ? 'Try adjusting your search or filters'
-                : 'Upload your first video to get started'
-              }
+              Upload your first video to get started
             </p>
             <Button onClick={() => navigate('/upload')}>
               <Plus className="w-4 h-4 mr-2" />
@@ -258,7 +255,7 @@ const DashboardPage: React.FC = () => {
           </Card>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredVideos.map((video) => (
+            {videos.map((video) => (
               <Card key={video.id} className="overflow-hidden group" hover>
                 {/* Thumbnail */}
                 <div className="relative aspect-video bg-slate-900">
