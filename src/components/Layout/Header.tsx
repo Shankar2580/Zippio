@@ -4,7 +4,7 @@ import { Menu, X, Upload } from 'lucide-react';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { setSidebarOpen } from '../../store/slices/uiSlice';
 import Button from '../UI/Button';
-import Logo from '../../Assets/ZippioAiLogo.png';
+import Logo from '../../Assets/ZippioLogo2.jpeg';
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
