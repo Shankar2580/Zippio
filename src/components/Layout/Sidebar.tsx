@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Upload, Video, Settings, X, Share2, Eye } from 'lucide-react';
+import { Home, BarChart3, Settings, X } from 'lucide-react';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { setSidebarOpen } from '../../store/slices/uiSlice';
 import clsx from 'clsx';
@@ -11,9 +11,8 @@ const Sidebar: React.FC = () => {
   const { sidebarOpen } = useAppSelector(state => state.ui);
 
   const navigation = [
-    { name: 'Dashboard', href: '/dashboard', icon: Home },
-    { name: 'Upload', href: '/upload', icon: Upload },
-    { name: 'Video Library', href: '/videos', icon: Video },
+    { name: 'Home', href: '/', icon: Home },
+    { name: 'Dashboard', href: '/dashboard', icon: BarChart3 },
     { name: 'Settings', href: '/settings', icon: Settings },
   ];
 
@@ -41,8 +40,7 @@ const Sidebar: React.FC = () => {
         
         <nav className="p-4 space-y-2">
           {navigation.map((item) => {
-            const isActive = location.pathname === item.href || 
-                           (item.href === '/videos' && location.pathname.startsWith('/videos'));
+            const isActive = location.pathname === item.href;
             return (
               <Link
                 key={item.name}
