@@ -214,7 +214,7 @@ const SignupPage = () => {
               </button>
 
               <div className="text-center text-slate-400 text-sm">
-                <p>Already have an account? <span className="text-blue-400 cursor-pointer">Sign in</span></p>
+                <p>Already have an account? <button onClick={() => navigate('/login')} className="text-blue-400 cursor-pointer hover:text-blue-300">Sign in</button></p>
                 <p className="mt-2">Test credentials: ID: Zippio, Password: 123456</p>
               </div>
             </form>

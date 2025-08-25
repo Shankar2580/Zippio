@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, Settings, Home, LayoutDashboard, } from 'lucide-react';
+import { Menu, X, Upload } from 'lucide-react';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { setSidebarOpen } from '../../store/slices/uiSlice';
 import Button from '../UI/Button';
-import clsx from 'clsx';
 import Logo from '../../Assets/ZippioAiLogo.png';
 
 const Header: React.FC = () => {
@@ -32,22 +31,41 @@ const Header: React.FC = () => {
           </div>
 
           <nav className="hidden xl:flex items-center space-x-1 flex-1 justify-center max-w-2xl">
-            {/* Navigation removed per request */}
+            {isAuthenticated && (
+              <>
+                <Link to="/" className="px-3 py-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">
+                  Home
+                </Link>
+                <Link to="/dashboard" className="px-3 py-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">
+                  Dashboard
+                </Link>
+                <Link to="/settings" className="px-3 py-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">
+                  Settings
+                </Link>
+              </>
+            )}
           </nav>
 
           <div className="flex items-center space-x-2 md:space-x-4">
-            <Button onClick={() => navigate('/')} size="sm" className={clsx('flex items-center px-3 py-2')}> 
-              <Home className="w-4 h-4 mr-2" />
-              Home
-            </Button>
-            <Button onClick={() => navigate('/dashboard')} size="sm" className={clsx('flex items-center px-3 py-2')}> 
-              <LayoutDashboard className="w-4 h-4 mr-2" />
-              Dashboard
-            </Button>
-            <Button onClick={() => navigate('/settings')} size="sm" className={clsx('flex items-center px-3 py-2')}> 
-              <Settings className="w-4 h-4 mr-2" />
-              Settings
-            </Button>
+            {!isAuthenticated ? (
+              <>
+                <Button onClick={() => navigate('/login')} size="sm" variant="outline">
+                  Login
+                </Button>
+                <Button onClick={() => navigate('/register')} size="sm">
+                  Sign Up
+                </Button>
+              </>
+            ) : (
+              <div className="flex items-center space-x-4">
+                <Link to="/upload">
+                  <Button size="sm" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700">
+                    <Upload className="w-4 h-4 mr-2" />
+                    Upload
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

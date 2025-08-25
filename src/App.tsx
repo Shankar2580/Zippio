@@ -6,7 +6,7 @@ import { useAppSelector } from './hooks';
 import Layout from './components/Layout/Layout';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
-// import SignupPage from './pages/SignupPage';
+import SignupPage from './pages/SignupPage';
 import UploadPage from './pages/UploadPage';
 import ProcessingStatusPage from './pages/ProcessingStatusPage';
 import ResultsPage from './pages/ResultsPage';
@@ -21,25 +21,49 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
 const PublicRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated } = useAppSelector(state => state.auth);
-  return !isAuthenticated ? <>{children}</> : <Navigate to="/" replace />;
+  return !isAuthenticated ? <>{children}</> : <Navigate to="/dashboard" replace />;
 };
 
 const AppRoutes: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={
-          <PublicRoute>
-            <LoginPage />
-          </PublicRoute>
-        } />
+        {/* All routes wrapped in Layout for consistent header/sidebar */}
         <Route path="/*" element={
           <Layout>
             <Routes>
+              {/* Public Routes */}
               <Route path="/" element={<LandingPage />} />
+              <Route path="/login" element={
+                <PublicRoute>
+                  <LoginPage />
+                </PublicRoute>
+              } />
+              <Route path="/register" element={
+                <PublicRoute>
+                  <SignupPage />
+                </PublicRoute>
+              } />
+              
+              {/* Protected Routes */}
+              <Route path="/dashboard" element={
+                <ProtectedRoute>
+                  <DashboardPage />
+                </ProtectedRoute>
+              } />
               <Route path="/upload" element={
                 <ProtectedRoute>
                   <UploadPage />
+                </ProtectedRoute>
+              } />
+              <Route path="/videos" element={
+                <ProtectedRoute>
+                  <ResultsPage />
+                </ProtectedRoute>
+              } />
+              <Route path="/videos/:taskId" element={
+                <ProtectedRoute>
+                  <ResultsPage />
                 </ProtectedRoute>
               } />
               <Route path="/processing-status" element={
@@ -47,17 +71,12 @@ const AppRoutes: React.FC = () => {
                   <ProcessingStatusPage />
                 </ProtectedRoute>
               } />
-              <Route path="/results" element={
+              <Route path="/review/:taskId" element={
                 <ProtectedRoute>
                   <ResultsPage />
                 </ProtectedRoute>
               } />
-              <Route path="/dashboard" element={
-                <ProtectedRoute>
-                  <DashboardPage />
-                </ProtectedRoute>
-              } />
-              <Route path="/social-media" element={
+              <Route path="/distribute/:taskId" element={
                 <ProtectedRoute>
                   <SocialMediaPage />
                 </ProtectedRoute>

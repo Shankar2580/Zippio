@@ -2,11 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface Video {
   id: string;
+  taskId: string;
   title: string;
   thumbnail: string;
   duration: number;
   size: number;
-  status: 'uploading' | 'processing' | 'completed' | 'failed';
+  status: 'uploading' | 'processing' | 'completed' | 'failed' | 'published';
   createdAt: string;
   downloadUrl?: string;
   processingProgress?: number;

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { User, Settings, CreditCard, Save, Video } from 'lucide-react';
+import { User, Settings, CreditCard, Save, Video, Bell, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../hooks';
 import { setUser } from '../store/slices/userSlice';
+import { logout } from '../store/slices/authSlice';
 import Button from '../components/UI/Button';
 import Card from '../components/UI/Card';
 
@@ -19,6 +20,14 @@ const SettingsPage: React.FC = () => {
     confirmPassword: '',
   });
 
+  const [notificationSettings, setNotificationSettings] = useState({
+    emailNotifications: true,
+    pushNotifications: true,
+    processingUpdates: true,
+    socialMediaAlerts: false,
+    marketingEmails: false,
+  });
+
   const [socialCredentials, setSocialCredentials] = useState({
     youtube: { apiKey: '', channelId: '' },
     facebook: { accessToken: '', pageId: '' },
@@ -30,9 +39,11 @@ const SettingsPage: React.FC = () => {
 
   const tabs = [
     { id: 'profile', name: 'Profile', icon: User },
+    { id: 'notifications', name: 'Notifications', icon: Bell },
     { id: 'billing', name: 'Billing', icon: CreditCard },
     { id: 'videos', name: 'My Videos', icon: Video },
     { id: 'social', name: 'Social Media', icon: Settings },
+    { id: 'logout', name: 'Logout', icon: LogOut },
   ];
 
   const handleSaveProfile = () => {
@@ -69,6 +80,12 @@ const SettingsPage: React.FC = () => {
         [field]: value
       }
     }));
+  };
+
+  const handleLogout = () => {
+    // Import logout action from auth slice
+    dispatch(logout());
+    navigate('/login');
   };
 
   return (
@@ -137,61 +154,64 @@ const SettingsPage: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* <div className="pt-6 border-t border-slate-700">
+                  <div className="pt-4">
                     <Button onClick={handleSaveProfile}>
                       <Save className="w-4 h-4 mr-2" />
-                      Save Changes
+                      Save Profile Changes
                     </Button>
-                  </div> */}
+                  </div>
+                </div>
+              </Card>
+            )}
 
-                  {/* Security (moved from Security tab)
-                  <div className="pt-8 border-t border-slate-700">
-                    <h3 className="text-lg font-semibold text-white mb-4">Change Password</h3>
-                    <div className="space-y-4 max-w-md">
-                      <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                          Current Password
-                        </label>
-                        <input
-                          type="password"
-                          value={formData.currentPassword}
-                          onChange={(e) => setFormData({ ...formData, currentPassword: e.target.value })}
-                          className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Enter current password"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                          New Password
-                        </label>
-                        <input
-                          type="password"
-                          value={formData.newPassword}
-                          onChange={(e) => setFormData({ ...formData, newPassword: e.target.value })}
-                          className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Enter new password"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                          Confirm New Password
-                        </label>
-                        <input
-                          type="password"
-                          value={formData.confirmPassword}
-                          onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                          className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Confirm new password"
-                        />
-                      </div>
-                      <div className="pt-2">
-                        <Button onClick={handleSavePassword}>
-                          <Save className="w-4 h-4 mr-2" />
-                          Update Password
-                        </Button>
-                      </div>
-                    </div> */}
-                  {/* </div> */}
+            {activeTab === 'notifications' && (
+              <Card className="p-8">
+                <h2 className="text-2xl font-bold text-white mb-8">All Notifications</h2>
+                
+                <div className="space-y-4">
+                  <div className="p-4 bg-slate-700/50 rounded-lg border border-slate-600">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-white font-medium">Video Processing Complete</h3>
+                      <span className="text-xs text-slate-400">2 hours ago</span>
+                    </div>
+                    <p className="text-slate-300 text-sm">Your video "Product Demo 2024" has been successfully enhanced and is ready for distribution.</p>
+                  </div>
+
+                  <div className="p-4 bg-slate-700/50 rounded-lg border border-slate-600">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-white font-medium">Distribution Successful</h3>
+                      <span className="text-xs text-slate-400">1 day ago</span>
+                    </div>
+                    <p className="text-slate-300 text-sm">Your enhanced video has been successfully distributed to all connected social media platforms.</p>
+                  </div>
+
+                  <div className="p-4 bg-slate-700/50 rounded-lg border border-slate-600">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-white font-medium">New Feature Available</h3>
+                      <span className="text-xs text-slate-400">3 days ago</span>
+                    </div>
+                    <p className="text-slate-300 text-sm">We've added new AI enhancement features to make your videos even better!</p>
+                  </div>
+
+                  <div className="p-4 bg-slate-700/50 rounded-lg border border-slate-600">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-white font-medium">Account Update</h3>
+                      <span className="text-xs text-slate-400">1 week ago</span>
+                    </div>
+                    <p className="text-slate-300 text-sm">Your account settings have been updated successfully.</p>
+                  </div>
+
+                  <div className="p-4 bg-slate-700/50 rounded-lg border border-slate-600">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-white font-medium">Welcome to Zippio.ai</h3>
+                      <span className="text-xs text-slate-400">2 weeks ago</span>
+                    </div>
+                    <p className="text-slate-300 text-sm">Thank you for joining Zippio.ai! Start creating amazing AI-enhanced videos today.</p>
+                  </div>
+                </div>
+
+                <div className="mt-6 text-center">
+                  <p className="text-slate-400 text-sm">All notifications are automatically displayed here</p>
                 </div>
               </Card>
             )}
@@ -224,8 +244,8 @@ const SettingsPage: React.FC = () => {
               <Card className="p-8">
                 <h2 className="text-2xl font-bold text-white mb-6">My Videos</h2>
                 <p className="text-slate-400 mb-6">View and manage your uploaded and processed videos.</p>
-                <Button onClick={() => navigate('/dashboard')}>
-                  Go to Dashboard
+                <Button onClick={() => navigate('/Videos')}>
+                  Go to Videos
                 </Button>
               </Card>
             )}
@@ -243,6 +263,19 @@ const SettingsPage: React.FC = () => {
                 </div>
                 
                 
+              </Card>
+            )}
+
+            {activeTab === 'logout' && (
+              <Card className="p-8">
+                <h2 className="text-2xl font-bold text-white mb-6">Logout</h2>
+                <p className="text-slate-400 mb-6">
+                  Click the button below to log out of your account.
+                </p>
+                <Button onClick={handleLogout} variant="outline" className="w-full">
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Log Out
+                </Button>
               </Card>
             )}
 
